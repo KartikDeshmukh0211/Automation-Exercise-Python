@@ -29,3 +29,6 @@ class HomePage(BasePage):
     
     def is_logged_in_as_username_present(self):
         return self.is_visible(self.LOGGED_IN_AS_USERNAME)
+    
+    def click_logout_button(self):
+        self.click(self.LOGOUT_BUTTON)
