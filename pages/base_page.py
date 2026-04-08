@@ -33,3 +33,8 @@ class BasePage:
     # Waiting for the element
     def wait_for_element(self, locator):
         return self.wait.until(EC.visibility_of_element_located(locator))
+    
+    def check_checkbox(self, locator):
+        element = self.wait_for_element(locator)
+        if not element.is_selected():
+            element.click()

@@ -13,6 +13,7 @@ class HomePage(BasePage):
     LOGOUT_BUTTON = (By.XPATH, "//a[normalize-space()='Logout']")
     APP_LOGO = (By.XPATH, "//img[@alt='Website for automation practice']")
     LOGGED_IN_AS_USERNAME = (By.XPATH, "//li[10]//a[1]")
+    DELETE_ACCOUNT_BUTTON = (By.XPATH, "//a[normalize-space()='Delete Account']")
     
     # Methods
     def click_sigup_and_login_button(self):
@@ -32,3 +33,8 @@ class HomePage(BasePage):
     
     def click_logout_button(self):
         self.click(self.LOGOUT_BUTTON)
+    
+    def click_delete_account_button(self):
+        self.click(self.DELETE_ACCOUNT_BUTTON)
+
+    
