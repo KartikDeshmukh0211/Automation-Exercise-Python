@@ -38,3 +38,11 @@ class BasePage:
         element = self.wait_for_element(locator)
         if not element.is_selected():
             element.click()
+            
+    def accept_alert(self):
+        alert = self.wait.until(EC.alert_is_present())
+        alert.accept()
+
+    def get_alert_text(self):
+        alert = self.wait.until(EC.alert_is_present())
+        return alert.text
