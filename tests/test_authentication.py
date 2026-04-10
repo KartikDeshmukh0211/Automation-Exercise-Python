@@ -85,7 +85,7 @@ class TestAuthentication(BaseTest):
         
         assert home_page.is_logged_in_as_username_present()
         
-        # we will avoid deleting the account during login steps inorder to preserve account
+        # we will avoid deleting the account during login steps inorder to preserve the account details...
         
     def test_03_login_with_incorrect_email_and_password(self):
         home_page = HomePage(self.driver)

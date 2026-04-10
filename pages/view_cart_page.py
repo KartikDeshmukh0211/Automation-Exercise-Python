@@ -10,6 +10,12 @@ class ViewCartPage(BasePage):
     PRODUCT_QUANTITY = (By.CLASS_NAME, "cart_quantity")
     PRODUCT_TOTAL = (By.CLASS_NAME, "cart_total")
     PRODUCT_QUANTITY = (By.XPATH, "//td[@class='cart_quantity']")
+    CART_PAGE_INFO = (By.XPATH, "//li[@class='active']")
+    CHECKOUT_BUTTON = (By.XPATH, "//a[normalize-space()='Proceed To Checkout']")
+    REGISTER_LOGIN_BUTTON = (By.XPATH, "//u[normalize-space()='Register / Login']")
+    
+    def is_cart_page_visible(self):
+        return self.is_visible(self.CART_PAGE_INFO)
     
     def get_products_count(self):
         return len(self.driver.find_elements(*self.PRODUCT_NAMES))
@@ -26,3 +32,9 @@ class ViewCartPage(BasePage):
     def get_product_quantity(self):
         text = self.get_text(self.PRODUCT_QUANTITY)
         return int(text)
+    
+    def click_checkout_button(self):
+        self.click(self.CHECKOUT_BUTTON)
+        
+    def click_register_login_button(self):
+        self.click(self.REGISTER_LOGIN_BUTTON)

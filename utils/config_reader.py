@@ -28,3 +28,9 @@ class ConfigReader:
 
     def get_password(self):
         return self.config.get("LOGIN", "password")
+    
+    def get_first_name(self):
+        return self.config.get("LOGIN", "first_name")
+    
+    def get_address1(self):
+        return self.config.get("LOGIN", "address1")
