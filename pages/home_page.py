@@ -15,6 +15,16 @@ class HomePage(BasePage):
     LOGGED_IN_AS_USERNAME = (By.XPATH, "//li[10]//a[1]")
     DELETE_ACCOUNT_BUTTON = (By.XPATH, "//a[normalize-space()='Delete Account']")
     CONTACT_US_BUTTON = (By.XPATH, "//a[normalize-space()='Contact us']")
+    TEST_CASES_BUTTON = (By.XPATH, "//a[contains(text(),'Test Cases')]")
+    PRODUCTS_BUTTON = (By.XPATH, "//a[@href='/products']")
+    CART_BUTTON = (By.XPATH, "//a[normalize-space()='Cart']")
+    FOOTER = (By.XPATH, "//footer[@id='footer']")
+    SUBSCRIPTION_TEXT = (By.XPATH, "//h2[normalize-space()='Subscription']")
+    EMAIL_INPUT = (By.XPATH, "//input[@id='susbscribe_email']")
+    ARROW_BUTTON = (By.XPATH, "//button[@id='subscribe']")
+    SUCCESS_MESSAGE = (By.XPATH, "//div[@class='alert-success alert']")
+    THIRD_VIEW_PRODUCT = (By.XPATH, "(//a[contains(text(),'View Product')])[3]")
+
     
     # Methods
     def click_sigup_and_login_button(self):
@@ -41,4 +51,32 @@ class HomePage(BasePage):
     def click_contact_us_button(self):
         self.click(self.CONTACT_US_BUTTON)
 
+    def click_test_cases_button(self):
+        self.click(self.TEST_CASES_BUTTON)
+        
+    def click_products_button(self):
+        self.click(self.PRODUCTS_BUTTON)
     
+    def click_cart_button(self):
+        self.click(self.CART_BUTTON)
+        
+    def scrool_to_footer(self):
+        # element = self.wait_for_element(self.FOOTER)
+        # self.driver.execute_script("arguments[0].scroolIntoView(true)", element)
+        
+        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+    def is_subscription_text_visible(self):
+        return self.is_visible(self.SUBSCRIPTION_TEXT)
+
+    def enter_subscription_email(self, email):
+        self.send_keys(self.EMAIL_INPUT, email)
+
+    def click_arrow_button(self):
+        self.click(self.ARROW_BUTTON)
+
+    def get_subscription_success_message(self):
+        return self.get_text(self.SUCCESS_MESSAGE)
+    
+    def click_third_view_product(self):
+        self.click(self.THIRD_VIEW_PRODUCT)

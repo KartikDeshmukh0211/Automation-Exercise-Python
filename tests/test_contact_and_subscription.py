@@ -36,3 +36,27 @@ class TestContactAndSubscription(BaseTest):
         contact_us_page.click_home_button()
         assert home_page.is_app_logo_present()
         
+    def test_10_verify_subscription_in_home_page(self):
+        home_page = HomePage(self.driver)
+        assert home_page.is_app_logo_present()
+        
+        home_page.scrool_to_footer()
+        email = generate_random_email()
+        home_page.enter_subscription_email(email)
+        home_page.click_arrow_button()
+
+        expected_text = "You have been successfully subscribed!"
+        assert home_page.get_subscription_success_message() == expected_text
+        
+    def test_11_verify_subscription_in_cart_page(self):
+        home_page = HomePage(self.driver)
+        assert home_page.is_app_logo_present()
+        
+        home_page.click_cart_button()
+        home_page.scrool_to_footer()
+        email = generate_random_email()
+        home_page.enter_subscription_email(email)
+        home_page.click_arrow_button()
+
+        expected_text = "You have been successfully subscribed!"
+        assert home_page.get_subscription_success_message() == expected_text

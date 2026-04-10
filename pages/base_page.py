@@ -8,8 +8,17 @@ class BasePage:
 
     # for clicking the element
     def click(self, locator):
+        # NORMAL CLICKING
         element = self.wait.until(EC.element_to_be_clickable(locator))
-        element.click()
+        try:
+            element.click()
+        except:
+            self.driver.execute_script("arguments[0].click();", element)
+        
+        # SCROOLING THEN CLICKING
+        # element = self.wait.until(EC.element_to_be_clickable(locator))
+        # self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
+        # self.driver.execute_script("arguments[0].click();", element)
         
     # for entering the text
     def send_keys(self, locator, text):
