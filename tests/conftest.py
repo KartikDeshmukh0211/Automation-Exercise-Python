@@ -23,7 +23,7 @@ def pytest_runtest_makereport(item, call):
             file_path = os.path.join(screenshots_dir, file_name)
 
             driver.save_screenshot(file_path)
-            print(f"Screenshot saved: {file_path}")
+            # print(f"Screenshot saved: {file_path}")
             
             # Attaching screnshots to Allure
             with open(file_path, "rb") as image:
@@ -41,7 +41,7 @@ def setup_and_teardown(request):
     os.makedirs(download_dir, exist_ok=True)
     
     chrome_options = Options()
-    # chrome_options.add_argument("--headless=new")
+    chrome_options.add_argument("--headless=new")
     chrome_options.add_experimental_option("prefs", {
         "download.default_directory": download_dir,
         "download.prompt_for_download": False,

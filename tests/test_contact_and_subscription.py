@@ -1,4 +1,5 @@
 import os
+import pytest
 
 from pages.contact_us_page import ContactUsPage
 from pages.home_page import HomePage
@@ -7,6 +8,8 @@ from utils.data_generator import *
 
 
 class TestContactAndSubscription(BaseTest):
+    @pytest.mark.regression
+    @pytest.mark.ui
     def test_06_contact_us_form(self):
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()
@@ -35,7 +38,10 @@ class TestContactAndSubscription(BaseTest):
 
         contact_us_page.click_home_button()
         assert home_page.is_app_logo_present()
+     
         
+    @pytest.mark.regression
+    @pytest.mark.ui
     def test_10_verify_subscription_in_home_page(self):
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()
@@ -47,7 +53,10 @@ class TestContactAndSubscription(BaseTest):
 
         expected_text = "You have been successfully subscribed!"
         assert home_page.get_subscription_success_message() == expected_text
-        
+     
+     
+    @pytest.mark.regression
+    @pytest.mark.ui    
     def test_11_verify_subscription_in_cart_page(self):
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()

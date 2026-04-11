@@ -1,5 +1,5 @@
-from email import message
 import os
+import pytest
 
 from pages import home_page
 from pages.account_created_page import AccountCreatedPage
@@ -19,6 +19,9 @@ from utils.file_utils import is_file_downloaded
 
 
 class TestCheckout(BaseTest):
+    @pytest.mark.regression
+    @pytest.mark.smoke
+    @pytest.mark.checkout
     def test_14_place_order_register_while_checkout(self):
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()
@@ -139,7 +142,10 @@ class TestCheckout(BaseTest):
         delete_account_page.click_contine_button()
 
         assert home_page.is_app_logo_present()
-        
+    
+    
+    @pytest.mark.regression
+    @pytest.mark.checkout    
     def test_15_place_order_register_before_checkout(self):
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()
@@ -261,6 +267,9 @@ class TestCheckout(BaseTest):
         assert home_page.is_app_logo_present()
         
     
+    @pytest.mark.regression
+    @pytest.mark.smoke
+    @pytest.mark.checkout
     def test_16_place_order_login_before_checkout(self):
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()
@@ -341,7 +350,9 @@ class TestCheckout(BaseTest):
 
         # we will avoid deleting the account during login steps inorder to preserve the account details...
         assert home_page.is_app_logo_present()
-        
+    
+    @pytest.mark.regression
+    @pytest.mark.checkout     
     def test_23_verify_address_details_in_checkout_page(self):
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()
@@ -424,7 +435,10 @@ class TestCheckout(BaseTest):
         delete_account_page.click_contine_button()
 
         assert home_page.is_app_logo_present()
-        
+    
+    
+    @pytest.mark.regression
+    @pytest.mark.checkout      
     def test_24_download_invoice_after_purchase_order(self):
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()

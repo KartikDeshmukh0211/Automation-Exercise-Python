@@ -1,3 +1,5 @@
+import pytest
+
 from pages.brand_products_page import BrandProductsPage
 from pages.category_products_page import CategoryProductsPage
 from pages.home_page import HomePage
@@ -8,6 +10,9 @@ from utils.data_generator import *
 
 
 class TestProducts(BaseTest):
+    @pytest.mark.regression
+    @pytest.mark.smoke
+    @pytest.mark.product
     def test_08_verify_all_products_and_product_details_page(self):
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()
@@ -29,6 +34,8 @@ class TestProducts(BaseTest):
         assert product_details_page.is_conditon_visible()
         assert product_details_page.is_brand_visible()
 
+    @pytest.mark.regression
+    @pytest.mark.search
     def test_09_search_product(self):
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()
@@ -43,7 +50,10 @@ class TestProducts(BaseTest):
         products_page.click_search_button()
         
         assert products_page.is_search_product_text_present()
-        
+    
+    
+    @pytest.mark.regression
+    @pytest.mark.navigation    
     def test_18_view_category_product(self):
         home_page = HomePage(self.driver)
         assert home_page.is_category_sidebar_visible()
@@ -58,7 +68,10 @@ class TestProducts(BaseTest):
         home_page.click_men_jeans()
 
         assert "MEN - JEANS PRODUCTS" == category_products_page.get_category_title_text()
-        
+    
+    
+    @pytest.mark.regression
+    @pytest.mark.navigation    
     def test_19_view_and_cart_brand_products(self):
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()
@@ -77,7 +90,9 @@ class TestProducts(BaseTest):
 
         assert "H&M PRODUCTS" in brand_page.get_brand_title_text()
         assert brand_page.is_products_visible()
-        
+    
+    @pytest.mark.regression
+    @pytest.mark.product    
     def test_21_add_review_on_product(self):
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()

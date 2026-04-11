@@ -1,3 +1,5 @@
+import pytest
+
 from pages.account_created_page import AccountCreatedPage
 from pages.delete_account_page import DeleteAccountPage
 from pages.home_page import HomePage
@@ -9,6 +11,9 @@ from utils.data_generator import *
 
 
 class TestAuthentication(BaseTest):
+    @pytest.mark.regression
+    @pytest.mark.smoke
+    @pytest.mark.login
     def test_01_register_user(self):
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()
@@ -69,6 +74,10 @@ class TestAuthentication(BaseTest):
         
         assert home_page.is_app_logo_present()           
             
+            
+    @pytest.mark.regression
+    @pytest.mark.smoke
+    @pytest.mark.login
     def test_02_login_with_correct_email_and_password(self):
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()
@@ -87,6 +96,9 @@ class TestAuthentication(BaseTest):
         
         # we will avoid deleting the account during login steps inorder to preserve the account details...
         
+        
+    @pytest.mark.regression
+    @pytest.mark.login
     def test_03_login_with_incorrect_email_and_password(self):
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()
@@ -110,7 +122,11 @@ class TestAuthentication(BaseTest):
         signup_and_login_page.click_login_button()
         
         assert signup_and_login_page.get_warning_message_for_login().__eq__(expected_text)
-        
+    
+    
+    @pytest.mark.regression
+    @pytest.mark.smoke
+    @pytest.mark.login    
     def test_04_logout_user(self):
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()
@@ -127,7 +143,10 @@ class TestAuthentication(BaseTest):
         
         home_page.click_logout_button()
         assert signup_and_login_page.is_login_section_present()
-        
+    
+    
+    @pytest.mark.regression
+    @pytest.mark.login    
     def test_05_register_user_with_existing_email(self):
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()

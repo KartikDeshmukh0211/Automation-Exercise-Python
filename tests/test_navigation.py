@@ -1,4 +1,4 @@
-import time
+import pytest
 
 from pages.home_page import HomePage
 from pages.test_cases_page import TestCasesPage
@@ -6,6 +6,8 @@ from tests.base_test import BaseTest
 
 
 class TestNavigation(BaseTest):
+    @pytest.mark.regression
+    @pytest.mark.ui
     def test_07_verify_test_cases_page(self):
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()
@@ -16,7 +18,9 @@ class TestNavigation(BaseTest):
         expected_text = "TEST CASES"
 
         assert test_cases_page.get_test_cases_text() == expected_text
-        
+    
+    @pytest.mark.regression
+    @pytest.mark.ui    
     def test_25_verify_scroll_up_using_arrow_button_and_scroll_down_functionality(self):
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()
@@ -26,7 +30,9 @@ class TestNavigation(BaseTest):
 
         home_page.click_scroll_up_arrow()
         assert home_page.is_top_text_visible()
-        
+    
+    @pytest.mark.regression
+    @pytest.mark.ui    
     def test_26_verify_scroll_up_without_arrow_button_and_scroll_down_functionality(self):
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()

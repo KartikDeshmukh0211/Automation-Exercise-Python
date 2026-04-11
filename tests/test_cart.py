@@ -1,4 +1,5 @@
 import time
+import pytest
 
 from pages.home_page import HomePage
 from pages.product_details_page import ProductDetailsPage
@@ -10,6 +11,9 @@ from utils.config_reader import ConfigReader
 
 
 class TestCart(BaseTest):
+    @pytest.mark.regression
+    @pytest.mark.smoke
+    @pytest.mark.cart
     def test_12_add_products_in_cart(self):
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()
@@ -37,7 +41,10 @@ class TestCart(BaseTest):
         assert len(prices) == requird_products
         assert len(quantities) == requird_products
         assert len(totals) == requird_products
-        
+     
+     
+    @pytest.mark.regression
+    @pytest.mark.cart   
     def test_13_verify_product_quantity_cart(self):
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()
@@ -55,7 +62,10 @@ class TestCart(BaseTest):
         actual_quantity = view_cart_page.get_product_quantity()
 
         assert actual_quantity == quantity
-        
+    
+    
+    @pytest.mark.regression
+    @pytest.mark.cart    
     def test_17_remove_products_from_cart(self):
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()
@@ -74,7 +84,11 @@ class TestCart(BaseTest):
         view_cart_page.clilck_remove_product_button()
         time.sleep(3)
         assert view_cart_page.is_cart_empty()
-        
+    
+    
+    @pytest.mark.regression
+    @pytest.mark.cart
+    @pytest.mark.search    
     def test_20_search_products_and_verify_cart_after_login(self):
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()
@@ -117,7 +131,9 @@ class TestCart(BaseTest):
         cart_products_after_login = view_cart_page.get_product_names()
 
         assert cart_products_before_login == cart_products_after_login
-        
+    
+    @pytest.mark.regression
+    @pytest.mark.cart    
     def test_22_add_to_cart_from_recommended_items(self):
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()
