@@ -32,6 +32,8 @@ class HomePage(BasePage):
     RECOMMENDED_TITLE = (By.XPATH, "//h2[normalize-space()='recommended items']")
     FIRDT_RECOMMENDED_ADD_TO_CART = (By.XPATH, "(//div[@id='recommended-item-carousel']//a[contains(text(),'Add to cart')])[1]")
     VIEW_CART_BTN = (By.XPATH, "//u[normalize-space()='View Cart']")
+    SCROLL_UP_ARROW = (By.XPATH, "//i[@class='fa fa-angle-up']")
+    TOP_TEXT = (By.XPATH, "//h2[contains(text(),'Full-Fledged practice website')]")
     
     # Methods
     def click_sigup_and_login_button(self):
@@ -113,6 +115,14 @@ class HomePage(BasePage):
         buttons = self.driver.find_elements(*self.FIRDT_RECOMMENDED_ADD_TO_CART)
         self.driver.execute_script("arguments[0].click();", buttons[0])
 
-    
     def click_view_cart_button(self):
         self.click(self.VIEW_CART_BTN)
+        
+    def click_scroll_up_arrow(self):
+        self.click(self.SCROLL_UP_ARROW)
+        
+    def is_top_text_visible(self):
+        return self.is_visible(self.TOP_TEXT)
+    
+    def scroll_to_top(self):
+        self.driver.execute_script("window.scrollTo(0, 0);")
