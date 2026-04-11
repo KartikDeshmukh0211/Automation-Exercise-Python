@@ -19,6 +19,11 @@ class ProductsPage(BasePage):
     SECOND_ADD_TO_CART = (By.XPATH, "(//div[@class='product-overlay']//a[contains(text(),'Add to cart')])[2]")
     CONTINUE_SHOPPING_BTN = (By.XPATH, "//button[text()='Continue Shopping']")
     VIEW_CART_BTN = (By.XPATH, "//u[text()='View Cart']")
+    BRANDS_SIDEBAR = (By.XPATH, "//div[@class='brands_products']")
+    BRAND_LINKS = (By.XPATH, "//div[@class='brands_products']//a")
+    PRODUCT_LIST = (By.XPATH, "//div[@class='features_items']")
+    PRODUCT_NAMES = (By.XPATH, "//div[@class='productinfo text-center']/p")
+    ADD_TO_CART_BUTTONS = (By.XPATH, "//a[contains(text(),'Add to cart')]")
     
     
     def is_all_products_page_visible(self):
@@ -63,5 +68,22 @@ class ProductsPage(BasePage):
     def click_view_cart(self):
         self.click(self.VIEW_CART_BTN)
         
-    
+    def is_brands_sidebar_visible(self):
+        return self.is_visible(self.BRANDS_SIDEBAR)
 
+    def click_brand(self, brand_name):
+        locator = (By.XPATH, f"//div[@class='brands_products']//a[contains(normalize-space(),'{brand_name}')]")
+        self.click(locator)
+        
+    def add_all_products_to_cart(self):
+        buttons = self.driver.find_elements(*self.ADD_TO_CART_BUTTONS) #for getting  count of buttons
+
+        for i in range(len(buttons)):
+            # for avoiding StaleElementReferenceException as DOM updates when we do some actions.....
+            buttons = self.driver.find_elements(*self.ADD_TO_CART_BUTTONS) 
+
+            self.driver.execute_script("arguments[0].click();", buttons[i])
+            self.click(self.CONTINUE_SHOPPING_BTN)
+
+    def get_searched_product_names(self):
+        return [el.text for el in self.driver.find_elements(*self.PRODUCT_NAMES)]

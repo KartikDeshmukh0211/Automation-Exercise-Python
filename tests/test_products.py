@@ -1,3 +1,5 @@
+from pages.brand_products_page import BrandProductsPage
+from pages.category_products_page import CategoryProductsPage
 from pages.home_page import HomePage
 from pages.product_details_page import ProductDetailsPage
 from pages.products_page import ProductsPage
@@ -40,3 +42,37 @@ class TestProducts(BaseTest):
         products_page.click_search_button()
         
         assert products_page.is_search_product_text_present()
+        
+    def test_18_view_category_product(self):
+        home_page = HomePage(self.driver)
+        assert home_page.is_category_sidebar_visible()
+
+        home_page.click_women_category()
+        home_page.click_women_dress()
+
+        category_products_page = CategoryProductsPage(self.driver)
+        assert "WOMEN - DRESS PRODUCTS" == category_products_page.get_category_title_text()
+        
+        home_page.click_men_category()
+        home_page.click_men_jeans()
+
+        assert "MEN - JEANS PRODUCTS" == category_products_page.get_category_title_text()
+        
+    def test_19_view_and_cart_brand_products(self):
+        home_page = HomePage(self.driver)
+        assert home_page.is_app_logo_present()
+
+        home_page.click_products_button()
+        products_page = ProductsPage(self.driver)
+
+        assert products_page.is_brands_sidebar_visible()
+        products_page.click_brand("Polo")
+
+        brand_page = BrandProductsPage(self.driver)
+        assert "POLO PRODUCTS" in brand_page.get_brand_title_text()
+        assert brand_page.is_products_visible()
+
+        products_page.click_brand("H&M")
+
+        assert "H&M PRODUCTS" in brand_page.get_brand_title_text()
+        assert brand_page.is_products_visible()

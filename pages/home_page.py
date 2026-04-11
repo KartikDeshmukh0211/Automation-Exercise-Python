@@ -24,6 +24,11 @@ class HomePage(BasePage):
     ARROW_BUTTON = (By.XPATH, "//button[@id='subscribe']")
     SUCCESS_MESSAGE = (By.XPATH, "//div[@class='alert-success alert']")
     THIRD_VIEW_PRODUCT = (By.XPATH, "(//a[contains(text(),'View Product')])[3]")
+    CATEGORY_SIDEBAR = (By.XPATH, "//div[@class='left-sidebar']")
+    WOMEN_CATEGORY = (By.XPATH, "//a[@href='#Women']")
+    WOMEN_DRESS = (By.XPATH, "//a[@href='/category_products/1']")
+    MEN_CATEGORY = (By.XPATH, "//a[@href='#Men']")
+    MEN_JEANS = (By.XPATH, "//a[@href='/category_products/6']")
 
     
     # Methods
@@ -80,3 +85,18 @@ class HomePage(BasePage):
     
     def click_third_view_product(self):
         self.click(self.THIRD_VIEW_PRODUCT)
+        
+    def is_category_sidebar_visible(self):
+        return self.is_visible(self.CATEGORY_SIDEBAR)
+
+    def click_women_category(self):
+        self.click(self.WOMEN_CATEGORY)
+
+    def click_women_dress(self):
+        self.click(self.WOMEN_DRESS)
+
+    def click_men_category(self):
+        self.click(self.MEN_CATEGORY)
+
+    def click_men_jeans(self):
+        self.click(self.MEN_JEANS)
