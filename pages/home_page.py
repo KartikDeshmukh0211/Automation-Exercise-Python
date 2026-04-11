@@ -29,7 +29,9 @@ class HomePage(BasePage):
     WOMEN_DRESS = (By.XPATH, "//a[@href='/category_products/1']")
     MEN_CATEGORY = (By.XPATH, "//a[@href='#Men']")
     MEN_JEANS = (By.XPATH, "//a[@href='/category_products/6']")
-
+    RECOMMENDED_TITLE = (By.XPATH, "//h2[normalize-space()='recommended items']")
+    FIRDT_RECOMMENDED_ADD_TO_CART = (By.XPATH, "(//div[@id='recommended-item-carousel']//a[contains(text(),'Add to cart')])[1]")
+    VIEW_CART_BTN = (By.XPATH, "//u[normalize-space()='View Cart']")
     
     # Methods
     def click_sigup_and_login_button(self):
@@ -70,6 +72,9 @@ class HomePage(BasePage):
         # self.driver.execute_script("arguments[0].scroolIntoView(true)", element)
         
         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        
+    def scroll_to_bottom(self):
+        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
     def is_subscription_text_visible(self):
         return self.is_visible(self.SUBSCRIPTION_TEXT)
@@ -100,3 +105,14 @@ class HomePage(BasePage):
 
     def click_men_jeans(self):
         self.click(self.MEN_JEANS)
+        
+    def is_recommended_items_visible(self):
+        return self.is_visible(self.RECOMMENDED_TITLE)
+    
+    def add_first_recommended_product_to_cart(self):
+        buttons = self.driver.find_elements(*self.FIRDT_RECOMMENDED_ADD_TO_CART)
+        self.driver.execute_script("arguments[0].click();", buttons[0])
+
+    
+    def click_view_cart_button(self):
+        self.click(self.VIEW_CART_BTN)

@@ -15,6 +15,12 @@ class ProductDetailsPage(BasePage):
     QUANTITY_INPUT = (By.XPATH, "//input[@id='quantity']")
     ADD_TO_CART_BTN = (By.XPATH, "//button[normalize-space()='Add to cart']")
     VIEW_CART_BTN = (By.XPATH, "//u[text()='View Cart']")
+    REVIEW_TEXT = (By.XPATH, "//a[normalize-space()='Write Your Review']")
+    NAME_INPUT = (By.ID, "name")
+    EMAIL_INPUT = (By.ID, "email")
+    REVIEW_INPUT = (By.ID, "review")
+    SUBMIT_BUTTON = (By.ID, "button-review")
+    SUCCESS_MESSAGE = (By.XPATH, "//span[contains(text(),'Thank you for your review.')]")
     
     def is_product_detail_visible(self):
         return self.is_visible(self.PRODUCT_DETAILS)
@@ -45,3 +51,21 @@ class ProductDetailsPage(BasePage):
 
     def click_view_cart(self):
         self.click(self.VIEW_CART_BTN)
+        
+    def is_review_section_visible(self):
+        return self.is_visible(self.REVIEW_TEXT)
+
+    def enter_review_name(self, name):
+        self.send_keys(self.NAME_INPUT, name)
+
+    def enter_review_email(self, email):
+        self.send_keys(self.EMAIL_INPUT, email)
+
+    def enter_review_text(self, text):
+        self.send_keys(self.REVIEW_INPUT, text)
+
+    def click_submit_review(self):
+        self.click(self.SUBMIT_BUTTON)
+
+    def get_review_success_message(self):
+        return self.get_text(self.SUCCESS_MESSAGE)

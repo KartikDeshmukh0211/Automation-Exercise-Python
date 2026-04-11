@@ -117,3 +117,19 @@ class TestCart(BaseTest):
         cart_products_after_login = view_cart_page.get_product_names()
 
         assert cart_products_before_login == cart_products_after_login
+        
+    def test_22_add_to_cart_from_recommended_items(self):
+        home_page = HomePage(self.driver)
+        assert home_page.is_app_logo_present()
+
+        home_page.scroll_to_bottom()
+        assert home_page.is_recommended_items_visible()
+
+        product_name = "Blue Top"
+        home_page.add_first_recommended_product_to_cart()
+        home_page.click_view_cart_button()
+        
+        view_cart_page = ViewCartPage(self.driver)
+        cart_products = view_cart_page.get_product_names()
+
+        assert product_name in cart_products

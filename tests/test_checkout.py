@@ -339,3 +339,87 @@ class TestCheckout(BaseTest):
 
         # we will avoid deleting the account during login steps inorder to preserve the account details...
         assert home_page.is_app_logo_present()
+        
+    def test_23_verify_address_details_in_checkout_page(self):
+        home_page = HomePage(self.driver)
+        assert home_page.is_app_logo_present()
+        
+        home_page.click_sigup_and_login_button()
+        
+        # filling details in signup page
+        signup_and_login_page = SignupAndLoginPage(self.driver)
+        assert signup_and_login_page.is_signup_section_present()
+        
+        name = generate_random_name()
+        email = generate_random_email()
+        signup_and_login_page.enter_name_in_signup_field(name)
+        signup_and_login_page.enter_email_in_signup_field(email)
+        signup_and_login_page.click_signup_button()
+        
+        password = generate_random_password()
+        first_name = generate_random_name()
+        last_name = generate_random_name()
+        company = generate_random_name()
+        address1 = generate_random_address()
+        address2 = generate_random_address()
+        state = generate_random_name()
+        city = generate_random_name()
+        zipcode = generate_random_phone(6)
+        mobile = generate_random_phone()
+        
+        signup_page = SignupPage(self.driver)
+        signup_page.select_title("Mr")
+        signup_page.enter_password(password)
+        signup_page.select_day(21)
+        signup_page.select_month("May")
+        signup_page.select_year(2018)
+        signup_page.select_newsletter()
+        signup_page.select_offers()
+        signup_page.enter_first_name(first_name)
+        signup_page.enter_last_name(last_name)
+        signup_page.enter_company(company)
+        signup_page.enter_address1(address1)
+        signup_page.enter_address2(address2)
+        signup_page.enter_country("India")
+        signup_page.enter_state(state)
+        signup_page.enter_city(city)
+        signup_page.enter_zipcode(zipcode)
+        signup_page.enter_mobile(mobile)
+        signup_page.click_create_account_button()
+
+        account_created_page = AccountCreatedPage(self.driver)
+        assert account_created_page.get_account_created_message() == "ACCOUNT CREATED!"
+        
+        account_created_page.click_continue_button()
+
+        assert home_page.is_logged_in_as_username_present()
+
+        home_page.click_products_button()
+        
+        products_page = ProductsPage(self.driver)
+        products_page.hover_and_add_first_product()
+        products_page.click_continue_shopping()
+        products_page.hover_and_add_second_product()
+        products_page.click_continue_shopping()
+
+        home_page.click_cart_button()
+        view_cart_page = ViewCartPage(self.driver)
+        assert view_cart_page.is_cart_page_visible()
+
+        view_cart_page.click_checkout_button()
+        
+        checkout_page = CheckoutPage(self.driver)
+        
+        assert address1 in checkout_page.get_delivery_address()
+        assert address1 in checkout_page.get_billing_address()
+
+        home_page.click_delete_account_button()
+
+        delete_account_page = DeleteAccountPage(self.driver)
+        expected_text2 = "ACCOUNT DELETED!"
+        assert delete_account_page.get_account_deleted_message() == expected_text2
+
+        delete_account_page.click_contine_button()
+
+        assert home_page.is_app_logo_present()
+        

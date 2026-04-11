@@ -13,10 +13,14 @@ class CheckoutPage(BasePage):
     PRODUCT_TOTAL = (By.XPATH, "//td[@class='cart_total']/p")
     DESCRIPTION_BOX = (By.XPATH, "//textarea[@name='message']")
     PLACE_ORDER_BUTTON = (By.XPATH, "//a[normalize-space()='Place Order']")
+    BILLING_ADDRESS = (By.XPATH, "//ul[@id='address_invoice']//li[@class='address_address1 address_address2'][2]")
 
     def get_delivery_name(self):
         return self.get_text(self.ADDRESS_NAME)
 
+    def get_billing_address(self):
+        return self.get_text(self.ADDRESS_FULL)
+    
     def get_delivery_address(self):
         return self.get_text(self.ADDRESS_FULL)
 

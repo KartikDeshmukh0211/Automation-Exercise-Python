@@ -4,6 +4,7 @@ from pages.home_page import HomePage
 from pages.product_details_page import ProductDetailsPage
 from pages.products_page import ProductsPage
 from tests.base_test import BaseTest
+from utils.data_generator import *
 
 
 class TestProducts(BaseTest):
@@ -76,3 +77,30 @@ class TestProducts(BaseTest):
 
         assert "H&M PRODUCTS" in brand_page.get_brand_title_text()
         assert brand_page.is_products_visible()
+        
+    def test_21_add_review_on_product(self):
+        home_page = HomePage(self.driver)
+        assert home_page.is_app_logo_present()
+
+        home_page.click_products_button()
+
+        products_page = ProductsPage(self.driver)
+        assert products_page.is_all_products_page_visible()
+
+        products_page.click_first_product_view_button()
+
+        product_details_page = ProductDetailsPage(self.driver)
+
+        assert product_details_page.is_review_section_visible()
+
+        name = generate_random_name()
+        email = generate_random_email()
+        review = generate_random_string(20)
+
+        product_details_page.enter_review_name(name)
+        product_details_page.enter_review_email(email)
+        product_details_page.enter_review_text(review)
+
+        product_details_page.click_submit_review()
+
+        assert product_details_page.get_review_success_message() == "Thank you for your review."
