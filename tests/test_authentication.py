@@ -79,8 +79,10 @@ class TestAuthentication(BaseTest):
     @pytest.mark.smoke
     @pytest.mark.login
     def test_02_login_with_correct_email_and_password(self):
+        self.logger.info("Test started: Login")
         home_page = HomePage(self.driver)
         assert home_page.is_app_logo_present()
+        self.logger.info("Home page verified")
         
         home_page.click_sigup_and_login_button()
         
@@ -88,11 +90,15 @@ class TestAuthentication(BaseTest):
         assert signup_and_login_page.is_login_section_present()
         
         config = ConfigReader()
+        self.logger.info("Entering details")
         signup_and_login_page.enter_email_in_login_field(config.get_email())
         signup_and_login_page.enter_password_in_login_field(config.get_password())
         signup_and_login_page.click_login_button()
         
         assert home_page.is_logged_in_as_username_present()
+        self.logger.info("Logged in successfully")
+
+        self.logger.info("Test passed")
         
         # we will avoid deleting the account during login steps inorder to preserve the account details...
         
