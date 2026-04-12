@@ -5,12 +5,9 @@ from datetime import datetime
 
 def get_logger(name: str):
     logger = logging.getLogger(name)
-    print("LOGGER FUNCTION CALLED")
 
     if logger.handlers:
         return logger
-
-    print("LOGGER FUNCTION CALLEDdf")
 
     logger.setLevel(logging.INFO)
 
